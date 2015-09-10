@@ -52,11 +52,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.SurfaceQueueInteropHelper, Version=0.9.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=x64">
-      <HintPath>packages\Microsoft.Wpf.Interop.D3D11Image-x64.0.9.0-alpha-22848\lib\net45\Microsoft.SurfaceQueueInteropHelper.dll</HintPath>
+      <HintPath>packages\Microsoft.Wpf.Interop.D3D11Image-x64.0.9.0-alpha-22849\lib\net45\Microsoft.SurfaceQueueInteropHelper.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Wpf.Interop.D3D11Image, Version=0.9.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Wpf.Interop.D3D11Image-x64.0.9.0-alpha-22848\lib\net45\Microsoft.Wpf.Interop.D3D11Image.dll</HintPath>
+      <HintPath>packages\Microsoft.Wpf.Interop.D3D11Image-x64.0.9.0-alpha-22849\lib\net45\Microsoft.Wpf.Interop.D3D11Image.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
