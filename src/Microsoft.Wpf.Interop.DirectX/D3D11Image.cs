@@ -1,12 +1,9 @@
-﻿namespace Microsoft.Wpf.Interop
+﻿namespace Microsoft.Wpf.Interop.DirectX
 {
+    using Microsoft.Windows.Media;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Windows;
     using System.Windows.Interop;
-    using Microsoft.Windows.Media;
 
     public sealed class D3D11Image : D3DImage, IDisposable
     {

@@ -11,10 +11,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include <SurfaceQueue.h>
+#include "SurfaceQueue.h"
 
-//#include "d3d9.h"
+#if DIRECTX_SDK
 #include <d3dx9.h>
+#else
+#include "d3d9.h"
+#endif
+
 #include <D3D10_1.h>
 //#include <d3dx10.h>
 
