@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Microsoft.Samples.Wpf.D3D11Interop.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:Microsoft.Wpf.Interop;assembly=Microsoft.Wpf.Interop.D3D11Image"
+        xmlns:dx="clr-namespace:Microsoft.Wpf.Interop.DirectX;assembly=Microsoft.Wpf.Interop.DirectX"
         Title="WPF D3D11 Interop" Height="540" Width="900" Closing="Window_Closing">
 
     <Window.Resources>
@@ -109,7 +109,7 @@
                         <Image Name ="Backdrop" Source="Images\Background.jpg"/>
                         <Image Stretch="Fill" Name="ImageHost" >
                             <Image.Source>
-                                <local:D3D11Image x:Name="InteropImage" />
+                                <dx:D3D11Image x:Name="InteropImage" />
                             </Image.Source>
                         </Image>
                     </Grid>
