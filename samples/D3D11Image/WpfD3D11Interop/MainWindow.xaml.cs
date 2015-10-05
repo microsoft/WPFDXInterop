@@ -334,7 +334,7 @@
                 {
                     if (!errorHasDisplayed)
                     {
-                        MessageBox.Show("This sample requires:\nManual build of the D3DVisualization project, which requires DirectX SDK Installation.\n" +
+                        MessageBox.Show("This sample requires:\nManual build of the D3DVisualization project, which requires installation of Windows 10 SDK or DirectX SDK.\n" +
                                         "Installation of the DirectX runtime on non-build machines.\n\n"+
                                         "Detailed exception message: " + e.Message, "WPF D3D11 Interop",
                                         MessageBoxButton.OK, MessageBoxImage.Error);
