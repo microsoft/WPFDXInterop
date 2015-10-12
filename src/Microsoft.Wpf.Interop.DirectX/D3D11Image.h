@@ -19,10 +19,10 @@ namespace Microsoft {
                     public D3DImage//, IDisposable
                 {
                 private: 
-                    //Action<IntPtr>^ _onRender;
                     static void RenderChanged(DependencyObject^ sender, DependencyPropertyChangedEventArgs args);
                     static void HWNDOwnerChanged(DependencyObject^ sender, DependencyPropertyChangedEventArgs args);
                     void EnsureHelper();
+                    static D3D11Image();
             
                 internal:
                     SurfaceQueueInteropHelper^ _helper;
@@ -31,8 +31,6 @@ namespace Microsoft {
                     Freezable^ CreateInstanceCore() override;
 
                 public:
-                    static D3D11Image();
-
                     D3D11Image();
                     ~D3D11Image();
 
