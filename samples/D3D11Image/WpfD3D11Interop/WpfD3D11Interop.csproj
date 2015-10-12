@@ -54,9 +54,6 @@
     <Reference Include="Microsoft.Wpf.Interop.DirectX">
       <HintPath>..\packages\Microsoft.Wpf.Interop.DirectX-x64.0.9.0-alpha-22850\lib\net45\Microsoft.Wpf.Interop.DirectX.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Wpf.Interop.SurfaceQueueInteropHelper">
-      <HintPath>..\packages\Microsoft.Wpf.Interop.DirectX-x64.0.9.0-alpha-22850\lib\net45\Microsoft.Wpf.Interop.SurfaceQueueInteropHelper.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
