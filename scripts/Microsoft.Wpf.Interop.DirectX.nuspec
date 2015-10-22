@@ -9,7 +9,7 @@
         <copyright>© Microsoft Corporation. All rights reserved</copyright>
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
         <licenseUrl>https://github.com/Microsoft/WPFDXInterop/blob/master/LICENSE</licenseUrl>
-        <summary>Microsoft.Wpf.Interop provides a new implementation of D3DImage that enables you to seamlessly interop with DirectX content in your WPF application.</summary>
+        <summary>Microsoft.Wpf.Interop.DirectX provides a new implementation of D3DImage that enables you to seamlessly interop with DirectX content in your WPF application.</summary>
         <projectUrl>https://github.com/Microsoft/WPFDXInterop </projectUrl>
         <iconUrl>http://go.microsoft.com/fwlink/?LinkID=532657</iconUrl>
         <tags>WPF DirectX D3DImage D3D11Image DirectX11 DirectX10</tags>
@@ -20,7 +20,5 @@
     <files>
         <file src="$NuGetBinaries$\wpf\Microsoft.Wpf.Interop.DirectX.dll" target="lib\net45\Microsoft.Wpf.Interop.DirectX.dll" />
         <file src="$symbols$\dll\Microsoft.Wpf.Interop.DirectX.pdb" target="lib\net45\Microsoft.Wpf.Interop.DirectX.pdb" />
-        <file src="$NuGetBinaries$\wpf\Microsoft.Wpf.Interop.SurfaceQueueInteropHelper.dll" target="lib\net45\Microsoft.Wpf.Interop.SurfaceQueueInteropHelper.dll" />
-        <file src="$NuGetBinaries$\wpf\Microsoft.Wpf.Interop.SurfaceQueueInteropHelper.pdb" target="lib\net45\Microsoft.Wpf.Interop.SurfaceQueueInteropHelper.pdb" />
     </files>
 </package>

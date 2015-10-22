@@ -1,1 +1,1 @@
-nuget.exe pack Microsoft.Wpf.Interop.DirectX.nuspec
+nuget.exe pack Microsoft.Wpf.Interop.DirectX.nuspec -Version 0.9.0-beta-99999 -Properties ArchitecturePublicName=x64
