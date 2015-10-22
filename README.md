@@ -16,7 +16,6 @@ Getting Started
 **More Info**
 
  - [Report a bug or ask a question](https://github.com/Microsoft/WPFDXInterop/issues)
- - [Contribute](https://github.com/Microsoft/WPFDXInterop/blob/master/CONTRIBUTING.md)
  - [License](http://opensource.org/licenses/MIT)
  - [FAQ](https://github.com/Microsoft/WPFDXInterop/blob/master/FAQ.md)
 
@@ -32,13 +31,14 @@ Building WPF DirectX Extensions from Source
 ------------------------------
 **What You Need**
 
- - [Visual Studio 2015](https://www.visualstudio.com/features/windows-apps-games-vs)
+ - [Visual Studio 2015](https://www.visualstudio.com/features/wpf-vs)
+ - [DirectX SDK](http://www.microsoft.com/en-us/download/details.aspx?id=6812)
+ - [Windows SDK](https://dev.windows.com/en-us/downloads/windows-10-sdk)
  
 **Build and Create WPF DirectX Extensions NuGet**
  
- - [Clone the Repository](https://github.com/Microsoft/XamlBehaviors)
- - Open the solution in Visual Studio
- - Change Build Configuration to Release
- - Build [Shift + B]
- - Run scripts/CreateManagedNuGet.cmd 
+ - [Clone the Repository](https://github.com/Microsoft/WPFDXInterop)
+ - Open Microsoft.Wpf.Interop.DirectX_winsdk or Microsoft.Wpf.Interop.DirectX_dxsdk solution from [Source](/src)  in Visual Studio
+ - Change Build Configuration to Release and build for x86 and x64
+ - Run BuildNuGetPackage in [scripts](/scripts) to create nuget packages 
 
