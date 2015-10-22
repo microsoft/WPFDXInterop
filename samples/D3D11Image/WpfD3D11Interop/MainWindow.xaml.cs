@@ -219,7 +219,7 @@
         #region Helpers
         private void InitializeRendering()
         {
-            InteropImage.WindowOwner = new System.Windows.Interop.WindowInteropHelper(this)).Handle;
+            InteropImage.WindowOwner = (new System.Windows.Interop.WindowInteropHelper(this)).Handle;
             InteropImage.OnRender = this.DoRender;
 
             // Set up camera
