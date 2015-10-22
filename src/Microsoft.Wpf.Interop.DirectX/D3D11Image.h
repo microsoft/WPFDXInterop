@@ -37,11 +37,31 @@ namespace Microsoft {
                     static DependencyProperty^ OnRenderProperty;
                     static DependencyProperty^ WindowOwnerProperty;
 
-                    Action<IntPtr>^ get_OnRender();
-                    void set_OnRender(Action<IntPtr>^ value);
+                    property Action<IntPtr>^ OnRender
+                    {
+                        Action<IntPtr>^ get()
+                        {
+                            return static_cast<Action<IntPtr>^>(GetValue(OnRenderProperty));
+                        }
 
-                    IntPtr get_WindowOwner();
-                    void set_WindowOwner(IntPtr value);
+                        void set(Action<IntPtr>^ value)
+                        {
+                            SetValue(OnRenderProperty, value);
+                        }
+                    }
+
+                    property IntPtr WindowOwner
+                    {
+                        IntPtr get()
+                        {
+                            return static_cast<IntPtr>(GetValue(WindowOwnerProperty));
+                        }
+
+                        void set(IntPtr value)
+                        {
+                            SetValue(WindowOwnerProperty, value);
+                        }
+                    }
 
                     void RequestRender();
                     

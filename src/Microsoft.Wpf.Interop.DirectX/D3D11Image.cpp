@@ -62,34 +62,14 @@ namespace Microsoft {
                     }
                 }
 
-                Action<IntPtr>^ D3D11Image::get_OnRender()
-                {
-                    return static_cast<Action<IntPtr>^>(GetValue(OnRenderProperty));
-                }
-
-                void D3D11Image::set_OnRender(Action<IntPtr>^ value)
-                {
-                    SetValue(OnRenderProperty, value);
-                }
-
-                IntPtr D3D11Image::get_WindowOwner()
-                {
-                    return static_cast<IntPtr>(GetValue(WindowOwnerProperty));
-                }
-
-                void D3D11Image::set_WindowOwner(IntPtr value)
-                {
-                    SetValue(WindowOwnerProperty, value);
-                }
-
                 void D3D11Image::EnsureHelper()
                 {
                     if (this->_helper == nullptr)
                     {
                         this->_helper = gcnew SurfaceQueueInteropHelper();
-                        this->_helper->HWND = this->get_WindowOwner();
+                        this->_helper->HWND = this->WindowOwner;
                         this->_helper->D3DImage = this;
-                        this->_helper->RenderD2D = this->get_OnRender();
+                        this->_helper->RenderD2D = this->OnRender;
                     }
                 }
 
@@ -98,7 +78,7 @@ namespace Microsoft {
                     this->EnsureHelper();
 
                     // Don't bother with a call if there's no callback registered.
-                    if (nullptr != this->get_OnRender())
+                    if (nullptr != this->OnRender)
                     {
                         this->_helper->RequestRenderD2D();
                     }
