@@ -15,8 +15,8 @@ namespace Microsoft {
         namespace Interop {
             namespace DirectX {
 
-                ref class D3D11Image :
-                    public D3DImage//, IDisposable
+                public ref class D3D11Image :
+                    public D3DImage
                 {
                 private: 
                     static void RenderChanged(DependencyObject^ sender, DependencyPropertyChangedEventArgs args);
