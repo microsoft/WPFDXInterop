@@ -219,8 +219,8 @@
         #region Helpers
         private void InitializeRendering()
         {
-            InteropImage.WindowOwner = (new System.Windows.Interop.WindowInteropHelper(this)).Handle;
-            InteropImage.OnRender = this.DoRender;
+            InteropImage.set_WindowOwner((new System.Windows.Interop.WindowInteropHelper(this)).Handle);
+            InteropImage.set_OnRender(this.DoRender);
 
             // Set up camera
             SetCameraRadius((float)RadiusSlider.Value);
