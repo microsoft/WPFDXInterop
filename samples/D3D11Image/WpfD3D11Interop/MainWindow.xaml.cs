@@ -1,7 +1,6 @@
 ﻿namespace Microsoft.Samples.Wpf.D3D11Interop
 {
     using System;
-    using System.Diagnostics;
     using System.Runtime.InteropServices;
     using System.Windows;
     using System.Windows.Input;
@@ -107,10 +106,20 @@
 
         private void Host_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            // TODO: handle non-96 DPI
-            int surfWidth = (int)(host.ActualWidth < 0 ? 0 : Math.Ceiling(host.ActualWidth));
-            int surfHeight = (int)(host.ActualHeight < 0 ? 0 : Math.Ceiling(host.ActualHeight));
+            double dpiScale = 1.0; // default value for 96 dpi
 
+            // determine DPI
+            // (as of .NET 4.6.1, this returns the DPI of the primary monitor, if you have several different DPIs)
+            var hwndTarget = PresentationSource.FromVisual(this).CompositionTarget as HwndTarget;
+            if (hwndTarget != null)
+            {
+                dpiScale = hwndTarget.TransformToDevice.M11;
+            }
+
+            int surfWidth = (int)(host.ActualWidth < 0 ? 0 : Math.Ceiling(host.ActualWidth * dpiScale));
+            int surfHeight = (int)(host.ActualHeight < 0 ? 0 : Math.Ceiling(host.ActualHeight * dpiScale));
+
+            // notify the D3D11Image and the DxRendering component of the pixel size desired for the DirectX rendering.
             InteropImage.SetPixelSize(surfWidth, surfHeight);
             NativeMethods.SetRenderSize(surfWidth, surfHeight);
 
