@@ -12,6 +12,7 @@ namespace Microsoft {
     namespace Windows {
         namespace Media {
 
+            /// A helper class which enables several versions of DirectX to share the same rendering surface.
             public ref class SurfaceQueueInteropHelper : IDisposable
             {
             private:
@@ -71,12 +72,13 @@ namespace Microsoft {
 
             public:
 
-
+                /// The action delegate called when a render is required.
                 property Action<IntPtr>^ SurfaceQueueInteropHelper::RenderD2D
                 {
                     void set(Action<IntPtr>^ value) { m_renderD2D = value; }
                 }
 
+                /// Gets or sets the associated D3DImage object that is working in conjunction with this helper.
                 property D3DImage^ SurfaceQueueInteropHelper::D3DImage
                 {
                     System::Windows::Interop::D3DImage^ get()
@@ -100,6 +102,7 @@ namespace Microsoft {
                     }
                 }
 
+                /// Gets the desired pixel width for the surface.
                 property unsigned int SurfaceQueueInteropHelper::PixelWidth
                 {
                     unsigned int get()
@@ -108,6 +111,7 @@ namespace Microsoft {
                     }
                 }
 
+                /// Gets the desired pixel height for the surface.
                 property unsigned int SurfaceQueueInteropHelper::PixelHeight
                 {
                     unsigned int get()
@@ -116,14 +120,17 @@ namespace Microsoft {
                     }
                 }
 
+                /// Enables user of this component to set the desired pixel size for the surface.
                 void SetPixelSize(unsigned int pixelWidth, unsigned int pixelHeight);
 
+                /// Gets or sets the HWND used by the helper while creating DirectX devices.
                 property IntPtr SurfaceQueueInteropHelper::HWND
                 {
                     IntPtr get() { return (IntPtr)(void*)m_hwnd; }
                     void set(IntPtr hwnd) { m_hwnd = (::HWND)(void*)hwnd; }
                 }
 
+                /// Requests render to happen.
                 void RequestRenderD2D();
 
                 !SurfaceQueueInteropHelper();
