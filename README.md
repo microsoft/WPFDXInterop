@@ -19,7 +19,6 @@ Getting Started
 
  - [Report a bug or ask a question](https://github.com/Microsoft/WPFDXInterop/issues)
  - [License](http://opensource.org/licenses/MIT)
- - [FAQ](https://github.com/Microsoft/WPFDXInterop/blob/master/FAQ.md)
 
 Code Example
 ------------
