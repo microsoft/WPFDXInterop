@@ -18,7 +18,7 @@
         </description>
     </metadata>
     <files>
-        <file src="$NuGetBinaries$\wpf\Microsoft.Wpf.Interop.DirectX.dll" target="lib\net45\Microsoft.Wpf.Interop.DirectX.dll" />
-        <file src="$symbols$\dll\Microsoft.Wpf.Interop.DirectX.pdb" target="lib\net45\Microsoft.Wpf.Interop.DirectX.pdb" />
+        <file src="$NuGetBinaries$\Microsoft.Wpf.Interop.DirectX.dll" target="lib\net45\Microsoft.Wpf.Interop.DirectX.dll" />
+        <file src="$NuGetBinaries$\Microsoft.Wpf.Interop.DirectX.pdb" target="lib\net45\Microsoft.Wpf.Interop.DirectX.pdb" />
     </files>
 </package>
