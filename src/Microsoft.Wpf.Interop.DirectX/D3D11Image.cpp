@@ -24,10 +24,10 @@ namespace Microsoft {
 
                 D3D11Image::~D3D11Image()
                 {
-                    if (this->_helper != nullptr)
+                    if (this->Helper != nullptr)
                     {
-                        this->_helper->~SurfaceQueueInteropHelper();
-                        this->_helper = nullptr;
+                        this->Helper->~SurfaceQueueInteropHelper();
+                        this->Helper = nullptr;
                     }
                 }
 
@@ -42,9 +42,9 @@ namespace Microsoft {
 
                     if (image != nullptr)
                     {
-                        if (image->_helper != nullptr)
+                        if (image->Helper != nullptr)
                         {
-                            image->_helper->HWND = static_cast<IntPtr>(args.NewValue);
+                            image->Helper->HWND = static_cast<IntPtr>(args.NewValue);
                         }
                     }
                 }
@@ -55,21 +55,21 @@ namespace Microsoft {
 
                     if (image != nullptr)
                     {
-                        if (image->_helper != nullptr)
+                        if (image->Helper != nullptr)
                         {
-                            image->_helper->RenderD2D = static_cast<Action<IntPtr>^>(args.NewValue);
+                            image->Helper->RenderD2D = static_cast<Action<IntPtr>^>(args.NewValue);
                         }
                     }
                 }
 
                 void D3D11Image::EnsureHelper()
                 {
-                    if (this->_helper == nullptr)
+                    if (this->Helper == nullptr)
                     {
-                        this->_helper = gcnew SurfaceQueueInteropHelper();
-                        this->_helper->HWND = this->WindowOwner;
-                        this->_helper->D3DImage = this;
-                        this->_helper->RenderD2D = this->OnRender;
+                        this->Helper = gcnew SurfaceQueueInteropHelper();
+                        this->Helper->HWND = this->WindowOwner;
+                        this->Helper->D3DImage = this;
+                        this->Helper->RenderD2D = this->OnRender;
                     }
                 }
 
@@ -80,14 +80,14 @@ namespace Microsoft {
                     // Don't bother with a call if there's no callback registered.
                     if (nullptr != this->OnRender)
                     {
-                        this->_helper->RequestRenderD2D();
+                        this->Helper->RequestRenderD2D();
                     }
                 }
 
                 void D3D11Image::SetPixelSize(int pixelWidth, int pixelHeight)
                 {
                     this->EnsureHelper();
-                    this->_helper->SetPixelSize(static_cast<UInt32>(pixelWidth), static_cast<UInt32>(pixelHeight));
+                    this->Helper->SetPixelSize(static_cast<UInt32>(pixelWidth), static_cast<UInt32>(pixelHeight));
                 }
             }
         }

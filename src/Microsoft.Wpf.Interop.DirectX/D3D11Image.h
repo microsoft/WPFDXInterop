@@ -15,17 +15,18 @@ namespace Microsoft {
         namespace Interop {
             namespace DirectX {
 
+                /// A System.Windows.Media.ImageSource which displays a user provided DirectX 10 or 11 surface.
                 public ref class D3D11Image :
                     public D3DImage
                 {
-                private: 
+                private:
                     static void RenderChanged(DependencyObject^ sender, DependencyPropertyChangedEventArgs args);
                     static void HWNDOwnerChanged(DependencyObject^ sender, DependencyPropertyChangedEventArgs args);
                     void EnsureHelper();
                     static D3D11Image();
-            
+
                 internal:
-                    SurfaceQueueInteropHelper^ _helper;
+                    SurfaceQueueInteropHelper^ Helper;
 
                 protected:
                     Freezable^ CreateInstanceCore() override;
@@ -37,6 +38,8 @@ namespace Microsoft {
                     static DependencyProperty^ OnRenderProperty;
                     static DependencyProperty^ WindowOwnerProperty;
 
+                    /// The OnRender action delegate will fire and pass the surface to the application that the DirectX rendering component should 
+                    /// render into.
                     property Action<IntPtr>^ OnRender
                     {
                         Action<IntPtr>^ get()
@@ -50,6 +53,7 @@ namespace Microsoft {
                         }
                     }
 
+                    /// The window handle (HWND) of the Window which hosts the D3D11Image (used during DirectX surface creation).
                     property IntPtr WindowOwner
                     {
                         IntPtr get()
@@ -63,11 +67,14 @@ namespace Microsoft {
                         }
                     }
 
+                    /// The RequestRender method signals that the D3D11Image should get the DirectX rendering code to render a new frame to the provided surface.
+                    /// Typically the user of the D3D11Image calls this every time the CompositionTarget.Rendering event fires.
                     void RequestRender();
                     
+                    /// The application hosting the D3D11Image should ensure that the PixelSize is the number of pixels that the D3D11Image is
+                    /// being displayed in.
                     void SetPixelSize(int pixelWidth, int pixelHeight);
                 };
-
             }
         }
     }
