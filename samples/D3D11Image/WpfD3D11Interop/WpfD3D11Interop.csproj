@@ -52,7 +52,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Wpf.Interop.DirectX">
-      <HintPath>..\packages\Microsoft.Wpf.Interop.DirectX-x64.0.9.0-beta-22853\lib\net45\Microsoft.Wpf.Interop.DirectX.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Wpf.Interop.DirectX-x64.0.9.0-beta-22854\lib\net45\Microsoft.Wpf.Interop.DirectX.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
