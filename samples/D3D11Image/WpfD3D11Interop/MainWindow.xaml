@@ -1,0 +1,168 @@
+﻿<Window x:Class="Microsoft.Samples.Wpf.D3D11Interop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dx="clr-namespace:Microsoft.Wpf.Interop.DirectX;assembly=Microsoft.Wpf.Interop.DirectX"
+        Title="WPF D3D11 Interop" Height="540" Width="900" Closing="Window_Closing">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="MediumGreyBrush" Color="#ff4e4e4e"/>
+        <SolidColorBrush x:Key="KinectPurpleBrush" Color="#ff52318f"/>
+        <Style TargetType="{x:Type CheckBox}" x:Key="SquareCheckBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type CheckBox}">
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Background="Transparent">
+                                <Grid x:Name="SquareCheckBoxChecked">
+                                    <Image x:Name="CheckedNormal" Source="Images\Checkbox_checked.png" Stretch="None" HorizontalAlignment="Center"/>
+                                </Grid>
+                                <Grid x:Name="SquareCheckBoxUnchecked" Visibility="Collapsed">
+                                    <Image x:Name="UncheckedNormal" Source="Images\Checkbox_unchecked.png" Stretch="None" HorizontalAlignment="Center"/>
+                                </Grid>
+                                <TextBlock x:Name="SquareCheckBoxText" Text="Recreate Surface on Resize" TextAlignment="Left"  VerticalAlignment="Center" FontSize="15"  Margin="9,0,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="false">
+                                <Setter Property="Visibility" Value="Collapsed" TargetName="SquareCheckBoxChecked"/>
+                                <Setter Property="Visibility" Value="Visible" TargetName="SquareCheckBoxUnchecked"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type RadioButton}" x:Key="KinectRadioButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <Grid>
+                            <Grid x:Name="KinectRadioButtonOnSet" HorizontalAlignment="Left">
+                                <Image Source="Images\radiobutton_on.png" Stretch="None"/>
+                            </Grid>
+                            <Grid x:Name="KinectRadioButtonOnUnset" HorizontalAlignment="Left" Visibility="Collapsed">
+                                <Image Source="Images\radiobutton_off.png" Stretch="None"/>
+                            </Grid>
+                            <TextBlock x:Name="KinectRadioButton" Text="{TemplateBinding Content}" TextAlignment="Left"  VerticalAlignment="Center" FontSize="15"  Margin="25,0,0,0"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="false">
+                                <Setter Property="Visibility" Value="Collapsed" TargetName="KinectRadioButtonOnSet"/>
+                                <Setter Property="Visibility" Value="Visible" TargetName="KinectRadioButtonOnUnset"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--Create a slider background like the standard one-->
+        <LinearGradientBrush x:Key="HorizontalSliderTrackNormalBorder" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#FFAEB1AF" Offset="0.1"/>
+            <GradientStop Color="White" Offset=".9"/>
+        </LinearGradientBrush>
+
+        <Style x:Key="KinectSlider" 
+           TargetType="{x:Type Slider}">
+            <Setter Property="Orientation" Value="Horizontal" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Slider}">
+                        <Grid>
+                            <Border Background="#FFE7EAEA" BorderBrush="{StaticResource HorizontalSliderTrackNormalBorder}" BorderThickness="1" CornerRadius="1" Margin="5,0" Height="4.0" Grid.Row="1"/>
+                            <Track Visibility="Visible" x:Name="PART_Track">
+                                <Track.Thumb>
+                                    <Thumb>
+                                        <Thumb.Template>
+                                            <ControlTemplate>
+                                                <Image Source="Images/Slider.png"/>
+                                            </ControlTemplate>
+                                        </Thumb.Template>
+                                    </Thumb>
+                                </Track.Thumb>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="10,0,10,10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="62" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="250" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Row="1" ClipToBounds="True">
+                <Border Name="ControlHostElement"
+                 BorderBrush="{StaticResource KinectPurpleBrush}"
+                 BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Grid x:Name="host" Cursor="None">
+                        <Rectangle Grid.Column="0" Fill="Black"/>
+                        <Image Name ="Backdrop" Source="Images\Background.jpg"/>
+                        <Image Stretch="Fill" Name="ImageHost" >
+                            <Image.Source>
+                                <dx:D3D11Image x:Name="InteropImage" />
+                            </Image.Source>
+                        </Image>
+                    </Grid>
+                </Border>
+                <Canvas x:Name="MagCurserToggle2">
+                    <Ellipse x:Name="MagEllipse" Visibility="Hidden">
+                        <Ellipse.Fill>
+                            <VisualBrush x:Name="MagBrush" ViewboxUnits="Absolute"
+                                        Visual="{Binding ElementName=ControlHostElement}"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </Canvas>
+                <Canvas x:Name="MagCurserToggle1" Cursor="None">
+                    <Image Name ="MagImage" Source="Images\MagnifyingGlass.png" Visibility="Hidden"/>
+                </Canvas>
+            </Grid>
+
+            <Rectangle Grid.Column="1" Fill="{StaticResource MediumGreyBrush}" Margin="10,0,0,0"/>
+            <StackPanel Grid.Column="1">
+                <Grid Margin="20,10,10,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="15"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="15"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="15"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="15"/>
+                        <RowDefinition Height="25"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="Magnifier" HorizontalAlignment="Left" FontSize="20" FontFamily="Segeo UI" Foreground="White"/>
+                    <RadioButton Grid.Row="1" x:Name="MagBox" Style="{StaticResource KinectRadioButton}" IsChecked="True" FontSize="12" FontFamily="Segeo UI" Foreground="White" Content="On"/>
+                    <RadioButton Grid.Row="1" x:Name="MagBox2" Style="{StaticResource KinectRadioButton}" IsChecked="False" FontSize="12" FontFamily="Segeo UI" Foreground="White" Content="Off" Margin="60,0"/>
+                    <Label Grid.Row="3" HorizontalAlignment="Left" Content="_Size"  VerticalAlignment="Center" FontSize="12" FontFamily="Segeo UI" Foreground="White" Target="{Binding ElementName=Size}"/>
+                    <Slider Grid.Row="3" x:Name="Size" Style="{StaticResource KinectSlider}" Minimum="30" Maximum="300" Value="100"  ValueChanged="Size_ValueChanged" Margin="50,0,30,0" FontSize="12" FontFamily="Segeo UI" Foreground="White"/>
+                    <Label Grid.Row="5" HorizontalAlignment="Left" Content="_Scale"  VerticalAlignment="Center" FontSize="12" FontFamily="Segeo UI" Foreground="White" Target="{Binding ElementName=Scale}"/>
+                    <Slider Grid.Row="5" x:Name="Scale" Style="{StaticResource KinectSlider}" Minimum="1" Value="2" Maximum="5" ValueChanged="Scale_ValueChanged" Margin="50,0,30,0"/>
+                    <TextBlock Grid.Row="7" Text="Camera Position" HorizontalAlignment="Left" FontSize="20" FontFamily="Segeo UI" Foreground="White"/>
+                    <Label Grid.Row="8" Content="_Radius" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" FontFamily="Segeo UI" Foreground="White" Target="{Binding ElementName=RadiusSlider}"/>
+                    <Slider Grid.Row="8" x:Name="RadiusSlider" Style="{StaticResource KinectSlider}" ValueChanged="Radius_ValueChanged" Minimum=".1" Value="2" Maximum="5" Margin="50,0,30,0" DataContext="{Binding}" />
+                    <Label Grid.Row="10" Content="_Theta"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" FontFamily="Segeo UI" Foreground="White" Target="{Binding ElementName=ThetaSlider}"/>
+                    <Slider Grid.Row="10" x:Name="ThetaSlider"  Style="{StaticResource KinectSlider}" ValueChanged="Theta_ValueChanged" Minimum="-180" Maximum="180" Value="0" Margin="50,0,30,0"/>
+                    <Label Grid.Row="12" Content="_Phi" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" FontFamily="Segeo UI" Foreground="White" Target="{Binding ElementName=PhiSlider}"/>
+                    <Slider Grid.Row="12" x:Name="PhiSlider" Style="{StaticResource KinectSlider}" ValueChanged="Phi_ValueChanged" Minimum="-89.9" Maximum="89.9" Value="0" Margin="50,0,30,0"/>
+                </Grid>
+            </StackPanel>
+        </Grid>
+        
+        <TextBlock Text="WPF D3D11 Interop" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,17" FontSize="14" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI"/>
+    </Grid>
+</Window>

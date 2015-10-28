@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>Microsoft.Wpf.Interop.DirectX-$ArchitecturePublicName$</id>
+        <title>Microsoft.Wpf.Interop.DirectX-$ArchitecturePublicName$</title>
+        <version>$version$</version>
+        <authors>Microsoft</authors>
+        <owners>Microsoft, NugetWPF</owners>
+        <copyright>© Microsoft Corporation. All rights reserved</copyright>
+        <requireLicenseAcceptance>true</requireLicenseAcceptance>
+        <licenseUrl>https://github.com/Microsoft/WPFDXInterop/blob/master/LICENSE</licenseUrl>
+        <summary>Microsoft.Wpf.Interop.DirectX provides a new implementation of D3DImage that enables you to seamlessly interop with DirectX 10 or 11 content in your WPF application.</summary>
+        <projectUrl>https://github.com/Microsoft/WPFDXInterop </projectUrl>
+        <iconUrl>http://go.microsoft.com/fwlink/?LinkID=532657</iconUrl>
+        <tags>WPF DirectX D3DImage D3D11Image DirectX11 DirectX10</tags>
+        <description>
+            Microsoft.Wpf.Interop.DirectX.D3D11Image is a version of D3DImage that supports DirectX 11 or DirectX 10. For more information, check out the project here: https://github.com/Microsoft/WPFDXInterop
+        </description>
+    </metadata>
+    <files>
+        <file src="$NuGetBinaries$\Microsoft.Wpf.Interop.DirectX.dll" target="lib\net45\Microsoft.Wpf.Interop.DirectX.dll" />
+        <file src="$NuGetBinaries$\Microsoft.Wpf.Interop.DirectX.pdb" target="lib\net45\Microsoft.Wpf.Interop.DirectX.pdb" />
+    </files>
+</package>
