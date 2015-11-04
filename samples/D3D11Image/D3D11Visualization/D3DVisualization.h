@@ -32,7 +32,7 @@ extern "C" {
 }
 
 extern "C" {
-    __declspec(dllexport) HRESULT __cdecl Render(void * pResource);
+    __declspec(dllexport) HRESULT __cdecl Render(void * pResource, bool isNewSurface);
 }
 
 extern "C" {
@@ -45,10 +45,6 @@ extern "C" {
 
 extern "C" {
     __declspec(dllexport) HRESULT __cdecl SetCameraPhi(float phi);
-}
-
-extern "C" {
-    __declspec(dllexport) HRESULT __cdecl SetRenderSize(int pixelWidth, int pixelHeight);
 }
 
 class CCube
@@ -75,7 +71,7 @@ public:
     /// Renders a frame
     /// </summary>
     /// <returns>S_OK for success, or failure code</returns>
-    HRESULT                             Render(void * pResource);
+    HRESULT                             Render(void * pResource, bool isNewSurface);
 
 
     /// <summary>
@@ -83,9 +79,6 @@ public:
     /// </summary>
     /// <returns>Pointer to the camera</returns>
     CCamera*                            GetCamera();
-
-    // Method for host to communicate size for rendering this D3D visualization.
-    HRESULT                             SetRenderSize(int pixelWidth, int pixelHeight);
 
     // Special function definitions to ensure alignment between c# and c++ 
     void* operator new(size_t size)
@@ -100,7 +93,9 @@ public:
 
 private:
 
+    HRESULT InitRenderTarget(void * pResource);
     void SetUpViewport();
+
     // 3d camera
     CCamera                             m_camera;
 

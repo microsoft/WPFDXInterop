@@ -40,14 +40,14 @@ namespace Microsoft {
 
                     /// The OnRender action delegate will fire and pass the surface to the application that the DirectX rendering component should 
                     /// render into.
-                    property Action<IntPtr>^ OnRender
+                    property Action<IntPtr, bool>^ OnRender
                     {
-                        Action<IntPtr>^ get()
+                        Action<IntPtr, bool>^ get()
                         {
-                            return static_cast<Action<IntPtr>^>(GetValue(OnRenderProperty));
+                            return static_cast<Action<IntPtr, bool>^>(GetValue(OnRenderProperty));
                         }
 
-                        void set(Action<IntPtr>^ value)
+                        void set(Action<IntPtr, bool>^ value)
                         {
                             SetValue(OnRenderProperty, value);
                         }

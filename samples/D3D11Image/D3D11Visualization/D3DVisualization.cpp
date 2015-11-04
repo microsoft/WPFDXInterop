@@ -64,14 +64,14 @@ extern void __cdecl Cleanup()
 /// <summary>
 /// Render for global class instance
 /// </summary>
-extern HRESULT __cdecl Render(void * pResource)
+extern HRESULT __cdecl Render(void * pResource, bool isNewSurface)
 {
     if ( NULL == pApplication )
     {
         return E_FAIL;
     }
 
-    return pApplication->Render(pResource);
+    return pApplication->Render(pResource, isNewSurface);
 }
 
 /// <summary>
@@ -118,20 +118,6 @@ extern HRESULT _cdecl SetCameraPhi(float phi)
 
     pApplication->GetCamera()->SetPhi(phi);
     return 0;
-}
-
-/// <summary>
-/// Sets the size of the this visualization
-/// </summary>
-extern HRESULT _cdecl SetRenderSize(int pixelWidth, int pixelHeight)
-{
-	if (NULL == pApplication)
-	{
-		return E_FAIL;
-	}
-
-	pApplication->SetRenderSize(pixelWidth, pixelHeight);
-	return 0;
 }
 
 /// <summary>
@@ -391,19 +377,11 @@ void CCube::SetUpViewport()
 	m_Projection = XMMatrixPerspectiveFovLH(XM_PIDIV4, m_Width / (FLOAT)m_Height, 0.01f, 100.0f);
 }
 
-HRESULT CCube::SetRenderSize(int pixelWidth, int pixelHeight)
-{
-	m_Width = pixelWidth;
-	m_Height = pixelHeight;
-
-	return S_OK;
-}
-
 /// <summary>
-/// Renders a frame
+/// Initializes RenderTarget
 /// </summary>
 /// <returns>S_OK for success, or failure code</returns>
-HRESULT CCube::Render(void * pResource)
+HRESULT CCube::InitRenderTarget(void * pResource)
 {
     HRESULT hr = S_OK;
 
@@ -426,19 +404,19 @@ HRESULT CCube::Render(void * pResource)
     pDXGIResource->Release();
 
     IUnknown * tempResource11;
-    hr = m_pd3dDevice->OpenSharedResource(sharedHandle, __uuidof(ID3D11Resource), (void**)(&tempResource11)); 
+    hr = m_pd3dDevice->OpenSharedResource(sharedHandle, __uuidof(ID3D11Resource), (void**)(&tempResource11));
     if (FAILED(hr))
     {
         return hr;
     }
 
     ID3D11Texture2D * pOutputResource;
-    hr = tempResource11->QueryInterface(__uuidof(ID3D11Texture2D), (void**)(&pOutputResource)); 
+    hr = tempResource11->QueryInterface(__uuidof(ID3D11Texture2D), (void**)(&pOutputResource));
     if (FAILED(hr))
     {
         return hr;
     }
-    tempResource11->Release(); 
+    tempResource11->Release();
 
     D3D11_RENDER_TARGET_VIEW_DESC rtDesc;
     rtDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
@@ -458,10 +436,38 @@ HRESULT CCube::Render(void * pResource)
         m_Width = outputResourceDesc.Width;
         m_Height = outputResourceDesc.Height;
 
-		SetUpViewport();
+        SetUpViewport();
     }
 
     m_pImmediateContext->OMSetRenderTargets(1, &m_pRenderTargetView, NULL);
+
+    if ( NULL != pOutputResource )
+    {
+        pOutputResource->Release();
+    }
+
+    return hr;
+}
+
+/// <summary>
+/// Renders a frame
+/// </summary>
+/// <returns>S_OK for success, or failure code</returns>
+HRESULT CCube::Render(void * pResource, bool isNewSurface)
+{
+    HRESULT hr = S_OK;
+
+    // If we've gotten a new Surface, need to initialize the renderTarget.
+    // One of the times that this happens is on a resize.
+    if ( isNewSurface )
+    {
+        m_pImmediateContext->OMSetRenderTargets(0, NULL, NULL);
+        hr = InitRenderTarget(pResource);
+        if (FAILED(hr))
+        {
+            return hr;
+        }
+    }
 
 	// Update our time
 	static float t = 0.0f;
@@ -487,7 +493,6 @@ HRESULT CCube::Render(void * pResource)
     static float ClearColor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
     m_pImmediateContext->ClearRenderTargetView(m_pRenderTargetView, ClearColor);
 
-
     // Update the view matrix
     m_camera.Update();
 
@@ -499,18 +504,11 @@ HRESULT CCube::Render(void * pResource)
 	cb.mProjection = XMMatrixTranspose(viewProjection);
 	m_pImmediateContext->UpdateSubresource(m_pConstantBuffer, 0, NULL, &cb, 0, 0);
 
-	//
 	// Renders a triangle
-	//
 	m_pImmediateContext->VSSetShader(m_pVertexShader, NULL, 0);
 	m_pImmediateContext->VSSetConstantBuffers(0, 1, &m_pConstantBuffer);
 	m_pImmediateContext->PSSetShader(m_pPixelShader, NULL, 0);
 	m_pImmediateContext->DrawIndexed(36, 0, 0);        // 36 vertices needed for 12 triangles in a triangle list
-
-    if ( NULL != pOutputResource )
-    {
-        pOutputResource->Release();
-    }
 
     if ( NULL != m_pImmediateContext )
     {

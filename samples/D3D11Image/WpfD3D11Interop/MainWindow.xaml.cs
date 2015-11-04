@@ -58,9 +58,9 @@
             NativeMethods.InvokeWithDllProtection(NativeMethods.Cleanup);
         }
 
-        private static int Render(IntPtr resourcePointer)
+        private static int Render(IntPtr resourcePointer, bool isNewSurface)
         {
-            return NativeMethods.InvokeWithDllProtection(() => NativeMethods.Render(resourcePointer));      
+            return NativeMethods.InvokeWithDllProtection(() => NativeMethods.Render(resourcePointer, isNewSurface));      
         }
 
         private static int SetCameraRadius(float radius)
@@ -119,10 +119,10 @@
             int surfWidth = (int)(host.ActualWidth < 0 ? 0 : Math.Ceiling(host.ActualWidth * dpiScale));
             int surfHeight = (int)(host.ActualHeight < 0 ? 0 : Math.Ceiling(host.ActualHeight * dpiScale));
 
-            // notify the D3D11Image and the DxRendering component of the pixel size desired for the DirectX rendering.
+            // Notify the D3D11Image of the pixel size desired for the DirectX rendering.
+            // The D3DRendering component will determine the size of the new surface it is given, at that point.
             InteropImage.SetPixelSize(surfWidth, surfHeight);
-            NativeMethods.SetRenderSize(surfWidth, surfHeight);
-
+                
             // Stop rendering if the D3DImage isn't visible - currently just if width or height is 0
             // TODO: more optimizations possible (scrolled off screen, etc...)
             bool isVisible = (surfWidth != 0 && surfHeight != 0);
@@ -261,9 +261,9 @@
         }
         #endregion Helpers
 
-        private void DoRender(IntPtr surface)
+        private void DoRender(IntPtr surface, bool isNewSurface)
         {
-            Render(surface);
+            Render(surface, isNewSurface);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -299,7 +299,7 @@
             public static extern void Cleanup();
 
             [DllImport("D3DVisualization.dll", CallingConvention = CallingConvention.Cdecl)]
-            public static extern int Render(IntPtr resourcePointer);
+            public static extern int Render(IntPtr resourcePointer, bool isNewSurface);
 
             [DllImport("D3DVisualization.dll", CallingConvention = CallingConvention.Cdecl)]
             public static extern int SetCameraRadius(float radius);
@@ -309,9 +309,6 @@
 
             [DllImport("D3DVisualization.dll", CallingConvention = CallingConvention.Cdecl)]
             public static extern int SetCameraPhi(float phi);
-
-            [DllImport("D3DVisualization.dll", CallingConvention = CallingConvention.Cdecl)]
-            public static extern int SetRenderSize(int pixelWidth, int pixelHeight);
 
             /// <summary>
             /// Method used to invoke an Action that will catch DllNotFoundExceptions and display a warning dialog.

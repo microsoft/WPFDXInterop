@@ -8,7 +8,7 @@ namespace Microsoft {
                 static D3D11Image::D3D11Image()
                 {
                     OnRenderProperty = DependencyProperty::Register("OnRender",
-                        Action<IntPtr>::typeid,
+                        Action<IntPtr, bool>::typeid,
                         D3D11Image::typeid,
                         gcnew UIPropertyMetadata(nullptr, gcnew PropertyChangedCallback(&RenderChanged)));
 
@@ -57,7 +57,7 @@ namespace Microsoft {
                     {
                         if (image->Helper != nullptr)
                         {
-                            image->Helper->RenderD2D = static_cast<Action<IntPtr>^>(args.NewValue);
+                            image->Helper->RenderD2D = static_cast<Action<IntPtr, bool>^>(args.NewValue);
                         }
                     }
                 }

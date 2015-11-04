@@ -16,7 +16,7 @@ namespace Microsoft {
             public ref class SurfaceQueueInteropHelper : IDisposable
             {
             private:
-                Action<IntPtr>^ m_renderD2D;
+                Action<IntPtr, bool>^ m_renderD2D;
                 D3DImage^ m_d3dImage;
                 DependencyPropertyChangedEventHandler^ m_frontBufferAvailableChanged;
                 UINT m_pixelWidth, m_pixelHeight;
@@ -48,7 +48,7 @@ namespace Microsoft {
 
                 HRESULT InitD3D10();
 
-                void RenderToDXGI(IntPtr pdxgiSurface);
+                void RenderToDXGI(IntPtr pdxgiSurface, bool isNewSurface);
 
                 void CleanupD3D10();
 
@@ -73,9 +73,9 @@ namespace Microsoft {
             public:
 
                 /// The action delegate called when a render is required.
-                property Action<IntPtr>^ SurfaceQueueInteropHelper::RenderD2D
+                property Action<IntPtr, bool>^ SurfaceQueueInteropHelper::RenderD2D
                 {
-                    void set(Action<IntPtr>^ value) { m_renderD2D = value; }
+                    void set(Action<IntPtr, bool>^ value) { m_renderD2D = value; }
                 }
 
                 /// Gets or sets the associated D3DImage object that is working in conjunction with this helper.

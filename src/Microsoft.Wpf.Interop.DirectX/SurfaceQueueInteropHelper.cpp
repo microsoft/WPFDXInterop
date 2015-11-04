@@ -51,11 +51,11 @@ namespace Microsoft {
                 return S_OK;
             }
 
-            void SurfaceQueueInteropHelper::RenderToDXGI(IntPtr pdxgiSurface)
+            void SurfaceQueueInteropHelper::RenderToDXGI(IntPtr pdxgiSurface, bool isNewSurface)
             {
                 if (nullptr != m_renderD2D)
                 {
-                    m_renderD2D(pdxgiSurface);
+                    m_renderD2D(pdxgiSurface, isNewSurface);
                 }
             }
 
@@ -297,6 +297,8 @@ namespace Microsoft {
                 UINT size = sizeof(int);
 
                 bool fNeedUnlock = false;
+                
+                bool isNewSurface = !m_areSurfacesInitialized;
 
                 if (m_shouldSkipRender || (nullptr == m_d3dImage) || !Initialize())
                 {
@@ -321,7 +323,7 @@ namespace Microsoft {
                     // Render D3D10 content
                     try
                     {
-                        RenderToDXGI((IntPtr)(void*)pDXGISurface);
+                        RenderToDXGI((IntPtr)(void*)pDXGISurface, isNewSurface);
                     }
                     catch (Exception^)
                     {
@@ -342,7 +344,12 @@ namespace Microsoft {
                 // Get the top level surface from the texture
                 IFC(pTexture9->GetSurfaceLevel(0, &pSurface9));
 
-                m_d3dImage->SetBackBuffer(System::Windows::Interop::D3DResourceType::IDirect3DSurface9, (IntPtr)(void*)pSurface9, true /* enableSoftwareFallback */);
+                m_d3dImage->SetBackBuffer(System::Windows::Interop::D3DResourceType::IDirect3DSurface9,
+                    (IntPtr)(void*)pSurface9, 
+                    true // enableSoftwareFallback
+                         // Supports fallback to software rendering for Remote Desktop, etc...
+                         // Was added in WPF 4.5
+                    );
 
                 // Produce Surface
                 m_ABProducer->Enqueue(pTexture9, &count, sizeof(int), SURFACE_QUEUE_FLAG_DO_NOT_WAIT);
