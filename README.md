@@ -6,8 +6,8 @@ Getting Started
  **Where to get it**
 
  - NuGet package
- 	- [x86](http://staging.nuget.org/packages/Microsoft.Wpf.Interop.DirectX-x86/0.9.0-beta-22853)
-	- [x64](http://staging.nuget.org/packages/Microsoft.Wpf.Interop.DirectX-x64/0.9.0-beta-22853)
+ 	- [x86](https://www.nuget.org/packages/Microsoft.Wpf.Interop.DirectX-x86/0.9.0-beta-22856)
+	- [x64](https://www.nuget.org/packages/Microsoft.Wpf.Interop.DirectX-x64/0.9.0-beta-22856)
  - [Source Code](https://github.com/Microsoft/WPFDXInterop)
 
 **Resources**
