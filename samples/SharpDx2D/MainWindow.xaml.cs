@@ -56,11 +56,13 @@ namespace SharpDx2D
                     brush.Dispose();
                     brush = null;
                 }
+
                 if (renderTarget != null)
                 {
                     renderTarget.Dispose();
                     renderTarget = null;
                 }
+
                 SharpDX.ComObject comObject = new SharpDX.ComObject(handle);
                 SharpDX.DXGI.Resource resource = comObject.QueryInterface<SharpDX.DXGI.Resource>();
                 SharpDX.Direct3D10.Texture2D texture = resource.QueryInterface<SharpDX.Direct3D10.Texture2D>();
@@ -77,10 +79,12 @@ namespace SharpDx2D
                     renderTarget = new RenderTarget(new Factory(), surface, properties);
                 }
             }
+
             if (brush == null)
             {
                 brush = new SharpDX.Direct2D1.SolidColorBrush(renderTarget, new SharpDX.Color4(0.2f, 0.2f, 0.2f, 0.5f));
             }
+
             renderTarget.BeginDraw();
             renderTarget.DrawTextLayout(new SharpDX.Vector2(50, 50), textLayout, brush);
             renderTarget.EndDraw();
