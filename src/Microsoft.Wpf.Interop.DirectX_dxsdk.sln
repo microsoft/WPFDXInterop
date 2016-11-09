@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Wpf.Interop.DirectX_dxsdk", "Microsoft.Wpf.Interop.DirectX\Microsoft.Wpf.Interop.DirectX.csproj", "{51880B2F-A2DD-4669-B7F2-D5315B03C06D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Wpf.Interop.DirectX_dxsdk", "Microsoft.Wpf.Interop.DirectX\Microsoft.Wpf.Interop.DirectX_dxsdk.vcxproj", "{157A478D-FE02-4EB2-BD7C-8CF3BF1CB9A2}" 
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
