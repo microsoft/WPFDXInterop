@@ -53,7 +53,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{157A478D-FE02-4EB2-BD7C-8CF3BF1CB9A2}</ProjectGuid>
+    <ProjectGuid>{51880B2F-A2DD-4669-B7F2-D5315B03C06D}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <TargetName>Microsoft.Wpf.Interop.DirectX</TargetName>
     <RootNamespace>Microsoft.Wpf.Interop.DirectX</RootNamespace>
