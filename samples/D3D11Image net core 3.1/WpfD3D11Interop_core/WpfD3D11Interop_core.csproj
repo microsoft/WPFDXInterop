@@ -17,12 +17,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="Microsoft.Wpf.Interop.DirectX">
-      <HintPath>..\..\..\src\bin\core_x64_Release\Microsoft.Wpf.Interop.DirectX.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="Images\Checkbox_checked.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -44,6 +38,10 @@
     <Content Include="Images\Slider.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Wpf.Interop.DirectX-x64" Version="0.9.31" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
