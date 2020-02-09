@@ -41,7 +41,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Wpf.Interop.DirectX-x64" Version="0.9.31" />
+    <Reference Include="Microsoft.Wpf.Interop.DirectX">
+      <HintPath>..\..\..\src\x64\Release\Microsoft.Wpf.Interop.DirectX.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
