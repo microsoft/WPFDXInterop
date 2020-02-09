@@ -1,2 +1,2 @@
-nuget.exe pack Microsoft.Wpf.Interop.DirectX.nuspec -Version 0.9.0-beta-99999 -Properties ArchitecturePublicName=x64;NuGetBinaries=..\src\x64\release -symbols
-nuget.exe pack Microsoft.Wpf.Interop.DirectX.nuspec -Version 0.9.0-beta-99999 -Properties ArchitecturePublicName=x86;NuGetBinaries=..\src\release -symbols
+nuget.exe pack Microsoft.Wpf.Interop.DirectX.nuspec -Version 0.9.31 -Properties ArchitecturePublicName=x64;NuGetBinaries=..\src\x64\release -symbols
+nuget.exe pack Microsoft.Wpf.Interop.DirectX.nuspec -Version 0.9.31 -Properties ArchitecturePublicName=x86;NuGetBinaries=..\src\release -symbols

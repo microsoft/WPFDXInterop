@@ -345,11 +345,14 @@ namespace Microsoft {
                 IFC(pTexture9->GetSurfaceLevel(0, &pSurface9));
 
                 m_d3dImage->SetBackBuffer(System::Windows::Interop::D3DResourceType::IDirect3DSurface9,
-                    (IntPtr)(void*)pSurface9, 
+                    (IntPtr)(void*)pSurface9
+#ifndef CORE
+                    , 
                     true // enableSoftwareFallback
                          // Supports fallback to software rendering for Remote Desktop, etc...
                          // Was added in WPF 4.5
-                    );
+#endif
+                );
 
                 // Produce Surface
                 m_ABProducer->Enqueue(pTexture9, &count, sizeof(int), SURFACE_QUEUE_FLAG_DO_NOT_WAIT);
