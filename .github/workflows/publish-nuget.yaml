@@ -1,0 +1,40 @@
+name: publish
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - '*'
+
+jobs:
+  build-and-publish-nuget:
+    name: build and publish nuget
+    runs-on: [self-hosted, Windows, X64, production]
+    steps:
+      - name: Get version number
+        id: version
+        uses: PaulHatch/semantic-version@v5.2.1
+        with:
+          version_format: "${major}.${minor}.${patch}-beta${increment}"
+
+      - uses: nuget/setup-nuget@v1
+        with:
+          nuget-api-key: ${{ secrets.GITHUB_TOKEN }}
+          nuget-version: '6.x'
+
+      - name: Build
+        id: build
+        run: |
+          msbuild src/Microsoft.Wpf.Interop.DirectX_winsdk.sln -restore -p:RestorePackagesConfig=true -t:Rebuild -p:Configuration=Release -p:Platform=x64 -nodeReuse:false -maxCpuCount
+
+      - name: Package
+        id: package
+        run: |
+          nuget pack Microsoft.Wpf.Interop.DirectX.nuspec -Version ${{ steps.version.outputs.version }} -Properties NuGetBinaries=src\x64\release -symbols
+      
+      - name: Publish NuGet package
+        shell: powershell
+        run: |
+          foreach($file in (Get-ChildItem . -Recurse -Include *.nupkg)) {
+              nuget push $file --api-key "${{ secrets.GITHUB_TOKEN }}" --source https://nuget.pkg.github.com/renewedvision/index.json --skip-duplicate
+          }

@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
-        <id>Microsoft.Wpf.Interop.DirectX-$ArchitecturePublicName$</id>
-        <title>Microsoft.Wpf.Interop.DirectX-$ArchitecturePublicName$</title>
+        <id>Microsoft.Wpf.Interop.DirectX</id>
+        <title>Microsoft.Wpf.Interop.DirectX</title>
         <version>$version$</version>
-        <authors>Microsoft</authors>
+        <authors>Microsoft, RenewedVision</authors>
         <owners>Microsoft, NugetWPF, RenewedVision</owners>
         <copyright>© Microsoft Corporation. All rights reserved</copyright>
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
