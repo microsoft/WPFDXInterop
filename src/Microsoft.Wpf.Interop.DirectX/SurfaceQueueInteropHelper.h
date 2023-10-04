@@ -73,13 +73,13 @@ namespace Microsoft {
             public:
 
                 /// The action delegate called when a render is required.
-                property Action<IntPtr, bool>^ SurfaceQueueInteropHelper::RenderD2D
+                property Action<IntPtr, bool>^ RenderD2D
                 {
                     void set(Action<IntPtr, bool>^ value) { m_renderD2D = value; }
                 }
 
                 /// Gets or sets the associated D3DImage object that is working in conjunction with this helper.
-                property D3DImage^ SurfaceQueueInteropHelper::D3DImage
+                property D3DImage^ D3DImage
                 {
                     System::Windows::Interop::D3DImage^ get()
                     {
@@ -103,7 +103,7 @@ namespace Microsoft {
                 }
 
                 /// Gets the desired pixel width for the surface.
-                property unsigned int SurfaceQueueInteropHelper::PixelWidth
+                property unsigned int PixelWidth
                 {
                     unsigned int get()
                     {
@@ -112,7 +112,7 @@ namespace Microsoft {
                 }
 
                 /// Gets the desired pixel height for the surface.
-                property unsigned int SurfaceQueueInteropHelper::PixelHeight
+                property unsigned int PixelHeight
                 {
                     unsigned int get()
                     {
@@ -124,7 +124,7 @@ namespace Microsoft {
                 void SetPixelSize(unsigned int pixelWidth, unsigned int pixelHeight);
 
                 /// Gets or sets the HWND used by the helper while creating DirectX devices.
-                property IntPtr SurfaceQueueInteropHelper::HWND
+                property IntPtr HWND
                 {
                     IntPtr get() { return (IntPtr)(void*)m_hwnd; }
                     void set(IntPtr hwnd) { m_hwnd = (::HWND)(void*)hwnd; }
